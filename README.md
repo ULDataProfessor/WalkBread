@@ -28,7 +28,11 @@ The `start` script runs a lightweight static server on <http://localhost:5173>. 
 
 - `npm run dev` – watches `src/styles/tailwind.css` and regenerates `css/tailwind.css` on save.
 - `npm run build:css` – produces a minified Tailwind build for production.
+- `npm run build` – assembles a deployable `dist/` folder (runs CSS build and copies assets).
 - `npm start` – builds CSS and serves the app with automatic cache busting.
+- `npm run serve:dist` – serves the built `dist/` output locally to verify deployment artifacts.
+- `npm run lint` – runs ESLint with Prettier integration across the project.
+- `npm run format` – applies Prettier formatting to supported files.
 
 ## Project Structure Highlights
 

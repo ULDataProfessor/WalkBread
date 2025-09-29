@@ -1,50 +1,69 @@
-const CACHE_NAME = 'walkbread-v1';
-const urlsToCache = [
+const CACHE_NAME = 'walkbread-v2';
+const OFFLINE_ASSETS = [
   '/',
   '/index.html',
   '/manifest.json',
-  'https://cdn.tailwindcss.com',
-  'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css',
-  'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js',
+  '/css/tailwind.css',
   '/js/app.js',
-  '/js/stores.js'
+  '/js/stores.js',
+  '/icons/icon-192x192.png',
+  '/icons/icon-512x512.png',
+  '/icons/placeholder.png',
 ];
 
-// Install event - cache resources
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then((cache) => {
-        console.log('Opened cache');
-        return cache.addAll(urlsToCache);
-      })
+    caches
+      .open(CACHE_NAME)
+      .then((cache) => cache.addAll(OFFLINE_ASSETS))
+      .then(() => self.skipWaiting())
   );
 });
 
-// Fetch event - serve from cache when offline
-self.addEventListener('fetch', (event) => {
-  event.respondWith(
-    caches.match(event.request)
-      .then((response) => {
-        // Return cached version or fetch from network
-        return response || fetch(event.request);
-      }
-    )
-  );
-});
-
-// Activate event - clean up old caches
 self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then((cacheNames) => {
-      return Promise.all(
-        cacheNames.map((cacheName) => {
-          if (cacheName !== CACHE_NAME) {
-            console.log('Deleting old cache:', cacheName);
-            return caches.delete(cacheName);
+    caches
+      .keys()
+      .then((names) =>
+        Promise.all(
+          names.map((name) => {
+            if (name !== CACHE_NAME) {
+              return caches.delete(name);
+            }
+            return null;
+          })
+        )
+      )
+      .then(() => self.clients.claim())
+  );
+});
+
+self.addEventListener('fetch', (event) => {
+  const { request } = event;
+  if (request.method !== 'GET') {
+    return;
+  }
+
+  event.respondWith(
+    caches.match(request).then((cachedResponse) => {
+      if (cachedResponse) {
+        return cachedResponse;
+      }
+
+      return fetch(request)
+        .then((response) => {
+          if (!response || response.status !== 200 || response.type !== 'basic') {
+            return response;
           }
+
+          const responseToCache = response.clone();
+          caches.open(CACHE_NAME).then((cache) => {
+            cache.put(request, responseToCache);
+          });
+
+          return response;
         })
-      );
+        .catch(() => caches.match('/index.html'));
     })
   );
 });

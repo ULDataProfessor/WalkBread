@@ -57,11 +57,7 @@
       "purpose": "maskable any"
     }
   ],
-  "categories": [
-    "food",
-    "lifestyle",
-    "navigation"
-  ],
+  "categories": ["food", "lifestyle", "navigation"],
   "lang": "en",
   "dir": "ltr",
   "scope": ".",

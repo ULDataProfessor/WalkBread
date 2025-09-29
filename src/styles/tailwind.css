@@ -18,11 +18,13 @@
 
 @layer utilities {
   .bread-gradient {
-    background: linear-gradient(135deg, #F8F6F0 0%, #D4C4A8 100%);
+    background: linear-gradient(135deg, #f8f6f0 0%, #d4c4a8 100%);
   }
 
   .bread-shadow {
-    box-shadow: 0 4px 6px -1px rgba(60, 46, 38, 0.1), 0 2px 4px -1px rgba(60, 46, 38, 0.06);
+    box-shadow:
+      0 4px 6px -1px rgba(60, 46, 38, 0.1),
+      0 2px 4px -1px rgba(60, 46, 38, 0.06);
   }
 
   .store-card {
