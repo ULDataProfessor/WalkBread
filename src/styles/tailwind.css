@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .filter-chip {
+    @apply px-3 py-1 text-sm rounded-full border border-bread-brown text-bread-dark bg-bread-white transition-colors duration-150;
+  }
+
+  .filter-chip:hover {
+    @apply bg-bread-brown text-bread-dark bg-opacity-80;
+  }
+
+  .filter-chip.active {
+    @apply bg-bread-green text-white border-bread-green;
+  }
+}
+
+@layer utilities {
+  .bread-gradient {
+    background: linear-gradient(135deg, #F8F6F0 0%, #D4C4A8 100%);
+  }
+
+  .bread-shadow {
+    box-shadow: 0 4px 6px -1px rgba(60, 46, 38, 0.1), 0 2px 4px -1px rgba(60, 46, 38, 0.06);
+  }
+
+  .store-card {
+    transition: transform 0.2s ease-in-out;
+  }
+
+  .store-card:hover {
+    transform: translateY(-2px);
+  }
+}

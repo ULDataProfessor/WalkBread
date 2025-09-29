@@ -1,0 +1,28 @@
+{
+  "name": "walkbread",
+  "version": "1.0.0",
+  "description": "A Progressive Web App for discovering and navigating to local bread stores and bakeries.",
+  "main": "sw.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "tailwindcss -i ./src/styles/tailwind.css -o ./css/tailwind.css --watch",
+    "build:css": "tailwindcss -i ./src/styles/tailwind.css -o ./css/tailwind.css --minify",
+    "start": "npm run build:css && http-server -c-1 -p 5173 ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ULDataProfessor/WalkBread.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/ULDataProfessor/WalkBread/issues"
+  },
+  "homepage": "https://github.com/ULDataProfessor/WalkBread#readme",
+  "devDependencies": {
+    "http-server": "^14.1.1",
+    "tailwindcss": "^3.4.3"
+  }
+}
